@@ -1,3 +1,4 @@
+//Julian Andres Lizalda Aristizabal y Pool Alexander Delgado Palacios
 #include <iostream>
 #include <cstdlib> // Esto es para malloc y free
 using namespace std;
