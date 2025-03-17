@@ -6,7 +6,7 @@ using namespace std;
 
 // Estructura del nodo que representa a un producto
 struct nodo {
-    int valor;         // ID del producto
+    int id;         // ID del producto
     char nombre[30];   // Nombre del producto (hasta 30 caracteres)
     nodo *sig;         // Puntero al siguiente nodo en la lista
 };
@@ -14,6 +14,7 @@ struct nodo {
 
 // Punteros globales para manipular la lista
 nodo *cab = NULL, *aux = NULL, *aux2 = NULL;
+int contadorID = 1;
 
 
 // Función para agregar un nuevo producto al final de la lista
@@ -25,11 +26,10 @@ void agregarProducto() {
         return;
     }
 
-    cout << "Ingrese el ID del producto: ";
-    cin >> aux->valor;
-
     cout << "Ingrese el nombre del producto: ";
     cin >> aux->nombre;
+
+    aux->id = contadorID++;
 
     aux->sig = NULL;  // El nuevo nodo no tiene siguiente (es el último)
 
@@ -56,7 +56,7 @@ void mostrarProducto() {
     }
     // Si la lista no está vacía, recorre y muestra todos los productos
     for (aux = cab; aux != NULL; aux = aux->sig) {
-        cout << "ID: " << aux->valor << " | Nombre: " << aux->nombre << endl;
+        cout << "ID: " << aux->id << " | Nombre: " << aux->nombre << endl;
     }
 }
 
@@ -69,7 +69,7 @@ int buscarProducto() {
 
     // Recorre la lista buscando un nodo con el mismo ID
     for (aux = cab; aux != NULL; aux = aux->sig) {
-        if (aux->valor == seed) {
+        if (aux->id == seed) {
             
             cout << "Producto encontrado: " << aux->nombre << endl;
             return 1;  // Producto encontrado
@@ -92,7 +92,7 @@ void eliminarProducto() {
     }
 
     // Si el primer nodo es el que se desea eliminar
-    if (cab->valor == id) {
+    if (cab->id == id) {
         aux = cab;  // Almacena el nodo a eliminar
         cab = cab->sig;  // Actualiza la cabeza de la lista al siguiente nodo
         free(aux);  // Libera la memoria del nodo eliminado
@@ -102,7 +102,7 @@ void eliminarProducto() {
 
     // Si el nodo a eliminar no es el primero, recorre la lista buscando el nodo a eliminar
     aux = cab;
-    while (aux->sig != NULL && aux->sig->valor != id) {
+    while (aux->sig != NULL && aux->sig->id != id) {
         aux = aux->sig;
     }
 
@@ -137,7 +137,7 @@ void modificarNombreProducto() {
     cin >> id;
 
     for (aux = cab; aux != NULL; aux = aux->sig) {
-        if (aux->valor == id) {
+        if (aux->id == id) {
             
             cout << "Producto encontrado: " << aux->nombre << endl;
             cout << "Ingrese el nuevo nombre para el producto: ";
